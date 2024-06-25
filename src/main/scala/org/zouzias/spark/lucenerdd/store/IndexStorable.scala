@@ -16,12 +16,17 @@
  */
 package org.zouzias.spark.lucenerdd.store
 
-import java.nio.file.{Files, Path}
+import com.erudika.lucene.store.s3.{S3Directory, S3FileSystemStore}
+import com.upplication.s3fs.S3FileSystem
 
+import java.nio.file.{FileSystems, Files, Path}
 import org.apache.lucene.facet.FacetsConfig
 import org.apache.lucene.store._
 import org.zouzias.spark.lucenerdd.config.Configurable
 import org.apache.spark.internal.Logging
+
+import java.net.URI
+import java.util
 
 /**
  * Storage of a Lucene index Directory
@@ -44,12 +49,16 @@ trait IndexStorable extends Configurable
   private val indexDirName =
     s"indexDirectory.${System.currentTimeMillis()}.${Thread.currentThread().getId}"
 
-  private val indexDir = Files.createTempDirectory(indexDirName)
+  private val indexS3FileSystem = S3FileSystemStore.getS3FileSystem
+//  private val indexDir = Files.createTempDirectory(indexDirName)
+  private val indexDir = indexS3FileSystem.getPath("lucene-kashyap")
 
   private val taxonomyDirName =
     s"taxonomyDirectory-${System.currentTimeMillis()}.${Thread.currentThread().getId}"
 
-  private val taxonomyDir = Files.createTempDirectory(taxonomyDirName)
+  private val taxonomyS3FileSystem = S3FileSystemStore.getTaxonomyS3FileSystem
+//  private val taxonomyDir = Files.createTempDirectory(taxonomyDirName)
+  private val taxonomyDir = taxonomyS3FileSystem.getPath("lucene-kashyap-taxonomy")
 
   protected val IndexDir = storageMode(indexDir)
 
@@ -74,6 +83,12 @@ trait IndexStorable extends Configurable
           // directoryPath.toFile.deleteOnExit() // Delete on exit
           new MMapDirectory(directoryPath, new SingleInstanceLockFactory)
         }
+        case "s3" =>
+          logInfo(s"Config parameter ${IndexStoreKey} is set to 's3'")
+          logInfo(s"Bucket Name: ${directoryPath.toString}")
+          val bucket: String = directoryPath.getFileSystem.asInstanceOf[S3FileSystem].getKey
+          val path: String = directoryPath.toString
+          new S3Directory(bucket, path)
         case ow =>
           logInfo(s"Config parameter ${IndexStoreKey} is set to ${ow}")
           logInfo("Lucene index will be storage in memory (default)")
