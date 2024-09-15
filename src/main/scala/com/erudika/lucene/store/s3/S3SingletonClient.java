@@ -23,9 +23,9 @@ public class S3SingletonClient {
             s3Client = S3Client.builder()
                     .credentialsProvider(() -> new AwsSessionCredentials
                             .Builder()
-                            .accessKeyId("") //This is from E2E account
-                            .secretAccessKey("")
-                            .sessionToken("")
+//                            .accessKeyId("") //This is from E2E account
+//                            .secretAccessKey("")
+//                            .sessionToken("")
                             .build()
                     )
                     .region(Region.US_WEST_2)
