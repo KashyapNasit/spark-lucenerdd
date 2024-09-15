@@ -26,7 +26,7 @@ object ReadSavedFile {
       spark.sparkContext.parallelize(data),
       schema
     )
-
+    println("Starting...")
     val luceneRDD = LuceneRDD(df, true)
 //    val rdd: LuceneRDD[Row] = sc.objectFile("spark-warehouse/lucene_text_1715102057572").asInstanceOf[LuceneRDD[Row]]
     luceneRDD.phraseQuery("phrase","hello").foreach(println)

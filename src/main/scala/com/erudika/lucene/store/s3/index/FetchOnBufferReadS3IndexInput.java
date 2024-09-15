@@ -105,28 +105,6 @@ public class FetchOnBufferReadS3IndexInput extends S3BufferedIndexInput {
 		bufferPosition = 0;
 	}
 
-//	@Override
-//	protected void readInternal(byte[] b, int offset, int length) throws IOException {
-//		GetObjectRequest getObjectRequest = GetObjectRequest.builder()
-//				.bucket(s3Directory.getBucket())
-//				.key(name)
-//				.range("bytes=" + offset + "-" + (offset + length - 1))
-//				.build();
-//
-//		try {
-//			ResponseBytes<GetObjectResponse> getObjectResponse = s3Directory.getS3().getObject(getObjectRequest, ResponseTransformer.toBytes());
-//			byte[] objectBytes = getObjectResponse.asByteArray();
-//			System.arraycopy(objectBytes, 0, b, 0, objectBytes.length);
-//			synchronized (this) {
-//				if (totalLength == -1) {
-//					totalLength = getObjectResponse.response().contentLength();
-//				}
-//			}
-//		} catch (Exception e) {
-//			throw new IOException("Unable to read from S3 object", e);
-//		}
-//	}
-
 	@Override
 	protected synchronized void readInternal(final byte[] b, final int offset, final int length) throws IOException {
 		if (logger.isDebugEnabled()) {

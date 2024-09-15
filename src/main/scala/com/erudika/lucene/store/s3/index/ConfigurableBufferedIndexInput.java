@@ -21,7 +21,7 @@ public abstract class ConfigurableBufferedIndexInput extends IndexInput {
 	/**
 	 * Default buffer size
 	 */
-	public static final int BUFFER_SIZE = 1024;
+	public static final int BUFFER_SIZE = 160000000;
 
 	protected int bufferSize = BUFFER_SIZE;
 

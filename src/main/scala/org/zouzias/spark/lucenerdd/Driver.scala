@@ -4,7 +4,6 @@
 
 package org.zouzias.spark.lucenerdd
 
-import org.apache.hadoop.io.compress.GzipCodec
 import org.apache.spark.sql.{Row, SparkSession}
 import org.apache.spark.sql.functions.{col, expr, from_json}
 import org.zouzias.spark.lucenerdd.UDF.updateIdUDF
