@@ -17,8 +17,8 @@
 
 name := "spark-lucenerdd"
 organization := "org.zouzias"
-scalaVersion := "2.12.18"
-crossScalaVersions := Seq("2.12.18")
+scalaVersion := "2.12.19"
+crossScalaVersions := Seq("2.12.19")
 licenses := Seq("Apache-2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0.html"))
 homepage := Some(url("https://github.com/zouzias/spark-lucenerdd"))
 
@@ -77,19 +77,19 @@ pomExtra := <scm>
     </developer>
   </developers>
 
-val luceneV = "8.11.2"
-val sparkVersion = "3.5.1"
+val luceneV = "8.11.3"
+val sparkVersion = "3.5.2"
 
 credentials += Credentials(Path.userHome / ".sbt" / ".credentials")
 
 
 // scalastyle:off
 
-val scalactic                 = "org.scalactic"                  %% "scalactic"                % "3.2.17"
-val scalatest                 = "org.scalatest"                  %% "scalatest"                % "3.2.17" % "test"
+val scalactic                 = "org.scalactic"                  %% "scalactic"                % "3.2.19"
+val scalatest                 = "org.scalatest"                  %% "scalatest"                % "3.2.19" % "test"
 
 
-val joda_time                 = "joda-time"                      % "joda-time"                 % "2.12.5"
+val joda_time                 = "joda-time"                      % "joda-time"                 % "2.12.7"
 val algebird                  = "com.twitter"                    %% "algebird-core"            % "0.13.10"
 val joda_convert              = "org.joda"                       % "joda-convert"              % "2.2.3"
 val spatial4j                 = "org.locationtech.spatial4j"     % "spatial4j"                 % "0.8"
